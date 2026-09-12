@@ -74,7 +74,7 @@ function calculateGPA() {
   for (let i = 0; i < classes.length; i++) {
     total += gradeToPoints(Number(classes[i].grade));
     if (classes[i].type === "Honors") honorsCount++;
-    if (classes[i].type === "AP/UConn ECE") apCount++;
+    if (classes[i].type === "AP") apCount++;
   }
 
   let unweighted = total / classes.length;
