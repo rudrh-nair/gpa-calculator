@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>GPA Calculator Mark II</title>
+
+</head>
+<body>
+<button type="button" id="darkModeBtn">Toggle Dark Mode</button>
+<h1>GPA Calculator</h1>
+
+<div class="form-section">
+<h2>Add Course</h2>
+<label for="className">Class Name:</label>
+<input type="text" id="className">
+<label for="grade">Grade:</label>
+<input type="number" id="grade">
+<label for="type">Class Type:</label>
+<select id="type"><option>Normal</option><option>Honors</option><option>AP</option></select>
+<label for="year">Year:</label>
+<select id="year">
+    <option>Freshman</option>
+    <option>Sophomore</option>
+    <option>Junior</option>
+    <option>Senior</option>
+</select>
+<button type="button" id="addBtn">Add</button>
+</div>
+<div class="form-section">
+<div id="classList"></div>
+</div>
+<div class="form-section">
+<h2>See Grade Point Average</h2>
+<button type="button" id="calcBtn">Calculate GPA</button>
+<div id="gpaResult"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

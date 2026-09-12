@@ -1,0 +1,83 @@
+:root {
+  --bg-color: #f4f2ee;
+  --text-color: #1a1a1a;
+  --accent-color: #1c3d5a;
+  --editable-bg: #e8e4da;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: 'Georgia', serif;
+}
+h1{
+    text-align: center;
+    font-family: Georgia, serif;
+}
+.form-section {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.form-section label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+}
+
+.form-section input,
+.form-section select {
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 6px 0;
+}
+body.dark-mode {
+  --bg-color: #1a1a1a;
+  --text-color: #e8e4da;
+  --accent-color: #7a9bc4;
+  --editable-bg: #3a3a3a;
+}
+.editable {
+  cursor: pointer;
+  background-color: var(--editable-bg);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 4px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Georgia, serif;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+.class-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+.class-name {
+  flex: 1;
+}
+.class-grade {
+  width: 45px;
+  text-align: center;
+}
+.class-type {
+  width: 70px;
+}
