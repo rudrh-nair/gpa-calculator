@@ -15,17 +15,18 @@ h1{
     font-family: Georgia, serif;
 }
 .form-section {
-  max-width: 400px;
-  margin: 20px auto;
+  margin: 20px 0;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
-
+.remove-btn {
+  background-color: #a4444c;
+}
 .form-section label {
   display: block;
-  margin-top: 12px;
-  margin-bottom: 4px;
+  margin-top: 20px;
+  margin-bottom: 8px;
 }
 
 .form-section input,
@@ -33,6 +34,7 @@ h1{
   width: 100%;
   padding: 6px;
   box-sizing: border-box;
+  margin-bottom: 8px;
 }
 summary {
   cursor: pointer;
@@ -80,4 +82,57 @@ button:hover {
 }
 .class-type {
   width: 70px;
+}
+.page-layout {
+  display: grid;
+  grid-template-columns: 550px 1fr;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 20px auto 20px 80px;
+}
+
+.right-column .form-section {
+  margin: 0 0 20px 0;
+}
+.page-layout > .form-section {
+  align-self: start;
+}
+
+button {
+  box-shadow: 0 3px 4px rgba(0,0,0,0.15);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  padding: 8px 20px;
+  border-radius: 6px;
+}
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+#calcBtn {
+  background-color: #3d7a6e;
+}
+#darkModeBtn {
+  background-color: transparent;
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
+}
+.gpa-result-main {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--accent-color);
+}
+#calcBtn {
+  background-color: #3d7a6e;
+  margin-bottom: 16px;
+  display: block;
+}
+.left-column .form-section {
+  margin: 0 0 20px 0;
+}
+.left-column .form-section:first-child {
+  padding: 32px 20px 40px 20px;
+}
+
+.left-column .form-section:first-child label {
+  margin-top: 28px;
 }

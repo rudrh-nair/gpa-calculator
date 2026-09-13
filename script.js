@@ -27,7 +27,7 @@ function renderList() {
           "<span class='class-name'>" + c.name + "</span>" +
           "<span class='class-grade editable' onclick='editField(" + realIndex + ", \"grade\")'>" + c.grade + "</span>" +
           "<span class='class-type'>" + c.type + "</span>" +
-          "<button onclick='removeClass(" + realIndex + ")'>Remove</button>" +
+          "<button class='remove-btn' onclick='removeClass(" + realIndex + ")'>Remove</button>" +
           "</div>";
       }).join("");
     } else {
@@ -70,17 +70,31 @@ function calculateGPA() {
   let total = 0;
   let honorsCount = 0;
   let apCount = 0;
+  let breakdown = [];
 
   for (let i = 0; i < classes.length; i++) {
-    total += gradeToPoints(Number(classes[i].grade));
-    if (classes[i].type === "Honors") honorsCount++;
-    if (classes[i].type === "AP" || classes[i].type === "ECE") apCount++;
+    let points = gradeToPoints(Number(classes[i].grade));
+    total += points;
+
+    let bump = 0;
+    if (classes[i].type === "Honors") { honorsCount++; bump = 0.05; }
+    if (classes[i].type === "AP" || classes[i].type === "ECE") { apCount++; bump = 0.07; }
+
+    breakdown.push({
+      name: classes[i].name,
+      points: points,
+      bump: bump
+    });
   }
 
   let unweighted = total / classes.length;
   let weighted = unweighted + (honorsCount * 0.05) + (apCount * 0.07);
 
-  return { unweighted: unweighted, weighted: weighted };
+    breakdown.sort(function(a, b) {
+      return a.bump - b.bump;
+    });
+
+  return { unweighted: unweighted, weighted: weighted, breakdown: breakdown };
 }
 
 document.getElementById("darkModeBtn").addEventListener("click", function() {
@@ -114,8 +128,16 @@ document.getElementById("type").value = "Normal";
 
 document.getElementById("calcBtn").addEventListener("click", function() {
   let result = calculateGPA();
-  document.getElementById("gpaResult").innerHTML =
-    "Unweighted: " + result.unweighted.toFixed(2) + " | Weighted: " + result.weighted.toFixed(2);
+
+document.getElementById("gpaResult").innerHTML =
+  "<div class='gpa-result-main'>Unweighted: " + result.unweighted.toFixed(2) + "</div>" +
+  "<div class='gpa-result-main'>Weighted: " + result.weighted.toFixed(2) + "</div>";
+
+  document.getElementById("breakdownResult").innerHTML =
+    result.breakdown.map(function(b) {
+      return "<p>" + b.name + ": " + b.points.toFixed(2) + " points" +
+        (b.bump > 0 ? " (+" + b.bump.toFixed(2) + " bump)" : "") + "</p>";
+    }).join("");
 });
 
 function removeClass(index) {
