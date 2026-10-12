@@ -1,4 +1,13 @@
 let classes=[];
+const BUMPS = {
+  Normal: 0,
+  Civics: 0.025,
+  Honors: 0.05,
+  AP: 0.07,
+  ECE: 0.07,
+  NCC: 0.07,
+  IBDP: 0.07
+};
 let savedDarkMode = localStorage.getItem("darkMode");
 if (savedDarkMode === "true") {
   document.body.classList.add("dark-mode");
@@ -37,15 +46,16 @@ function renderList() {
   });
 
   document.getElementById("classList").innerHTML = fullHTML;
+    document.getElementById("gpaResult").innerHTML = "";
+    document.getElementById("breakdownResult").innerHTML = "";
 }
 
 function editField(index, field) {
   let newValue = prompt("New value for " + field + ":", classes[index][field]);
-  if (newValue !== null && newValue !== "") {
-    classes[index][field] = newValue;
-    localStorage.setItem("classes", JSON.stringify(classes));
-    renderList();
-  }
+  if (newValue === null || newValue.trim() === "" || isNaN(Number(newValue))) return;
+  classes[index][field] = newValue;
+  localStorage.setItem("classes", JSON.stringify(classes));
+  renderList();
 }
 
 renderList();
@@ -68,31 +78,23 @@ function gradeToPoints(grade) {
 
 function calculateGPA() {
   let total = 0;
-  let honorsCount = 0;
-  let apCount = 0;
+  let totalBump = 0;
   let breakdown = [];
 
   for (let i = 0; i < classes.length; i++) {
     let points = gradeToPoints(Number(classes[i].grade));
     total += points;
 
-    let bump = 0;
-    if (classes[i].type === "Honors") { honorsCount++; bump = 0.05; }
-    if (classes[i].type === "AP" || classes[i].type === "ECE") { apCount++; bump = 0.07; }
+    let bump = BUMPS[classes[i].type] || 0;
 
-    breakdown.push({
-      name: classes[i].name,
-      points: points,
-      bump: bump
-    });
+    totalBump += bump;
+    breakdown.push({ name: classes[i].name, points: points, bump: bump });
   }
 
   let unweighted = total / classes.length;
-  let weighted = unweighted + (honorsCount * 0.05) + (apCount * 0.07);
+  let weighted = unweighted + totalBump;
 
-    breakdown.sort(function(a, b) {
-      return a.bump - b.bump;
-    });
+  breakdown.sort(function(a, b) { return a.bump - b.bump; });
 
   return { unweighted: unweighted, weighted: weighted, breakdown: breakdown };
 }
@@ -128,6 +130,11 @@ document.getElementById("type").value = "Normal";
 
 document.getElementById("calcBtn").addEventListener("click", function() {
   let result = calculateGPA();
+    if (classes.length === 0) {
+      document.getElementById("gpaResult").innerHTML = "<p>Add at least one class first.</p>";
+      document.getElementById("breakdownResult").innerHTML = "";
+      return;
+    }
 
 document.getElementById("gpaResult").innerHTML =
   "<div class='gpa-result-main'>Unweighted: " + result.unweighted.toFixed(2) + "</div>" +
@@ -136,7 +143,7 @@ document.getElementById("gpaResult").innerHTML =
   document.getElementById("breakdownResult").innerHTML =
     result.breakdown.map(function(b) {
       return "<p>" + b.name + ": " + b.points.toFixed(2) + " points" +
-        (b.bump > 0 ? " (+" + b.bump.toFixed(2) + " bump)" : "") + "</p>";
+        (b.bump > 0 ? " (+" + b.bump + " bump)" : "") + "</p>";
     }).join("");
 });
 

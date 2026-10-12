@@ -20,9 +20,12 @@
         <label for="type">Class Type:</label>
         <select id="type">
             <option>Normal</option>
+            <option value="Civics">Honors Civics 1/2</option>
             <option>Honors</option>
             <option value="AP">AP</option>
             <option value="ECE">UConn ECE</option>
+            <option value="NCC">NCC</option>
+            <option value="IBDP">IBDP</option>
         </select>
         <label for="year">Year:</label>
         <select id="year">
@@ -47,6 +50,21 @@
     <div class="form-section breakdown-section">
         <h2>Breakdown</h2>
         <div id="breakdownResult"></div>
+    </div>
+    <div class="form-section info-section">
+        <h2>How Weighting Works</h2>
+        <p>Weighted GPA is your unweighted GPA plus a bump for each course:</p>
+        <ul>
+            <li>Honors: +0.05</li>
+            <li>AP / UConn ECE / NCC / IBDP: +0.07</li>
+            <li>Honors Civics 1 and 2: +0.025 each</li>
+        </ul>
+        <p>Some course names don't say what they count as:</p>
+        <ul>
+            <li>Data Structures: Honors</li>
+            <li>Multivariable Calculus: AP</li>
+            <li>All Agriscience courses: Honors</li>
+        </ul>
     </div>
 </div>
 <script src="script.js"></script>
