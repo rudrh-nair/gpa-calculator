@@ -51,7 +51,7 @@ function renderList() {
 }
 
 function editField(index, field) {
-  let newValue = prompt("New value for " + field + ":", classes[index][field]);
+  let newValue = prompt("New grade (%): " + field + ":", classes[index][field]);
   if (newValue === null || newValue.trim() === "" || isNaN(Number(newValue))) return;
   classes[index][field] = newValue;
   localStorage.setItem("classes", JSON.stringify(classes));

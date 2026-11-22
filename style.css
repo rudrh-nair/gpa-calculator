@@ -145,4 +145,13 @@ button:active {
     grid-column: 1;
     grid-row: auto;
   }
+    .instructions {
+      margin: 20px 5px;
+    }
 }
+.instructions {
+  max-width: 1200px;
+  margin: 20px auto;
+  line-height: 2;
+}
+.instructions ol { margin: 8px 0; padding-left: 20px; }
